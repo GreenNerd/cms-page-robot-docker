@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 128
+  username: postgres
+  password:
+  host: db
+
+development:
+  <<: *default
+  database: cms_page_robot_development
+
+test:
+  <<: *default
+  database: cms_page_robot_test
+
+production:
+  <<: *default
+  database: cms_page_robot_production
