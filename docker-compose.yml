@@ -1,0 +1,38 @@
+version: '3'
+services:
+  db:
+    container_name: 'postgresql'
+    image: postgres:9.5-alpine
+    volumes:
+      - ./data/postgresql:/var/lib/postgresql/data
+      - ./etc/postgresql/postgresql.conf:/etc/postgresql/postgresql.conf
+    expose:
+      - '5432'
+
+  web:
+    container_name: 'web'
+    image: nginx:1.11.6-alpine
+    volumes:
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app
+    ports:
+      - '8080:8080'
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 'cms_page_robot'
+    env_file:
+      - app.default.env
+    depends_on:
+      - db
+    links:
+      - db
+    volumes:
+      - ./config/database.yml:/var/cms-page-robot/config/database.yml
+      - ./config/settings.yml:/var/cms-page-robot/config/settings.yml
+    command: bundle exec rails s -e production
+    expose:
+      - '3000'

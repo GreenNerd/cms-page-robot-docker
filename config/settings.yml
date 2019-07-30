@@ -1,0 +1,10 @@
+tianfu:
+  account: <%= ENV['ACCOUNT'] %>
+  authorization_code: <%= ENV['AUTHORIZATION_CODE'] %>
+  host: <%= ENV['HOST'] %>
+  get_token:
+    url: <%= ENV['URL'] %>
+    request_method: <%= ENV['REQUEST_METHOD'] %>
+  add_page:
+    url: <%= ENV['URL'] %>
+    request_method: <%= ENV['REQUEST_METHOD'] %>
